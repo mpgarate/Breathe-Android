@@ -1,4 +1,4 @@
-package com.example.breatheeasy;
+package com.breatheeasy;
 
 public class Task {
 	private int id;

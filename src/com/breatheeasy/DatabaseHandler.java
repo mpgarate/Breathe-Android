@@ -1,4 +1,4 @@
-package com.example.breatheeasy;
+package com.breatheeasy;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -88,7 +88,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		String countQuery = "SELECT  * FROM " + TABLE_TASKS;
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(countQuery, null);
-		cursor.close();
 		
 		return cursor.getCount();
 	}
@@ -108,5 +107,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.delete(TABLE_TASKS, KEY_ID + " = ?",
 				new String[] {String.valueOf(task.getID()) });
 		db.close();
+	}
+	
+	public void deleteAllTasks(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(TABLE_TASKS, null, null);
 	}
 }
