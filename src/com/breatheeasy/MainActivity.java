@@ -1,15 +1,12 @@
 package com.breatheeasy;
 
-import java.util.Random;
-
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +24,9 @@ public class MainActivity extends Activity {
 	
 	public void showRandomItem(View view){
 		TextView t = (TextView) findViewById(R.id.visible_task);
-		DatabaseHandler db = new DatabaseHandler(this);
-		int count = db.getTasksCount();
 		
-		Random rand = new Random();
-		int randomId = rand.nextInt((count - 1) + 1) + 1;
-		Log.i("Main activity","count: " + count);
-		Log.i("Main activity","Got random: " + randomId);
-		Task task = db.getTask(randomId); 
+		Task task = Task.getRandomTask(new DatabaseHandler(this));
+
 		t.setText(task.getText());
 	}
 	
