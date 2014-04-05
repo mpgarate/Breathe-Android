@@ -1,5 +1,8 @@
 package com.breatheeasy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,12 +10,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-	private static final int DATABASE_VERSION = 1;
-	private static final String DATABASE_NAME = "tasksManager";
-	private static final String TABLE_TASKS = "tasks";
+	protected static final int DATABASE_VERSION = 1;
+	protected static final String DATABASE_NAME = "tasksManager";
+	protected static final String TABLE_TASKS = "tasks";
 
-	private static final String KEY_ID = "id";
-	private static final String KEY_TEXT = "text";
+	protected static final String KEY_ID = "id";
+	protected static final String KEY_TEXT = "text";
 
 	public DatabaseHandler(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -112,5 +115,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public void deleteAllTasks(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(TABLE_TASKS, null, null);
+	}
+	
+	public List<Task> getAllTasks(){
+		List<Task> taskList = new ArrayList<Task>();
+		
+		String selectQuery = "SELECT  * FROM " + TABLE_TASKS;
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		
+		if (cursor.moveToFirst()){
+			do{
+				Task task = new Task();
+				task.setID(Integer.parseInt(cursor.getString(0)));
+				task.setText(cursor.getString(1));
+				
+				taskList.add(task);
+			} while(cursor.moveToNext());
+		}
+		
+		return taskList;
 	}
 }

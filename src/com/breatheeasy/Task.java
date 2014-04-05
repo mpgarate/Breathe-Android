@@ -8,12 +8,11 @@ public class Task {
 	private int id;
 	private String text;
 	
-
 	public Task(int id, String text){
 		this.text = text;
 		this.id = id;
 	}
-
+	
 	public Task(String text){
 		this.text = text;
 	}

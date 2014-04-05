@@ -1,8 +1,11 @@
 package com.breatheeasy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,6 +25,32 @@ public class MainActivity extends FragmentActivity {
 		return true;
 	}
 	
+	public boolean onOptionsItemSelected(MenuItem item){
+		switch (item.getItemId()){
+		case R.id.action_edit_tasks:
+			startEditTasks();
+			setContentView(R.layout.activity_edit_tasks);
+			return true;
+		case R.id.action_settings:
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	private void startEditTasks(){
+		/*
+		 * 	Intent intent = new Intent(this, DisplayMessageActivity.class);
+		    EditText editText = (EditText) findViewById(R.id.edit_message);
+		    String message = editText.getText().toString();
+		    intent.putExtra(EXTRA_MESSAGE, message);
+		    startActivity(intent);
+		 */
+		Log.w("startEditTasks","Got Here!");
+		Intent intent = new Intent(this, EditTasksActivity.class);
+		startActivity(intent);
+	}
+	
 	public void showRandomItem(View view){
 		TextView t = (TextView) findViewById(R.id.visible_task);
 		
@@ -35,8 +64,8 @@ public class MainActivity extends FragmentActivity {
 		DatabaseHandler db = new DatabaseHandler(this);
 		db.deleteAllTasks();
 		db.addTask(new Task("Say hello"));
-		db.addTask(new Task("Lorem ipsum dolor"));
-		db.addTask(new Task("Little Chicken rocks"));
+		db.addTask(new Task("Read a book"));
+		db.addTask(new Task("Listen to music"));
 	}
 
 }
