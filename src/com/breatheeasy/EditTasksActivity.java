@@ -13,8 +13,6 @@ public class EditTasksActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
-		Log.e("EditTasksActivity","got here");
-
 		setContentView(R.layout.activity_edit_tasks);
 		
 		super.onCreate(savedInstanceState);
