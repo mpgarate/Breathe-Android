@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -32,7 +31,8 @@ public class EditTasksActivity extends Activity {
 
 		ListAdapter adapter = new ArrayAdapter<String>(
 					this,
-					android.R.layout.simple_list_item_1,
+					R.layout.task_list_item,
+					R.id.view_task_list_item,
 					task_texts
 				);
 		
