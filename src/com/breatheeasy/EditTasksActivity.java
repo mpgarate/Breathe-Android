@@ -1,19 +1,13 @@
 package com.breatheeasy;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
-public class EditTasksActivity extends Activity implements OnItemClickListener{
+public class EditTasksActivity extends Activity{
 	
 	protected DatabaseHandler db;
 	protected ArrayAdapter<String> adapter;
@@ -31,15 +25,15 @@ public class EditTasksActivity extends Activity implements OnItemClickListener{
 		
 	}
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-	long id) {
+	
+	public void deleteItem(View v){
+		int position = tasksList.getPositionForView(v);
+		
 		Log.w("EditTasksActivity", "got click on pos: " + position);
 		Task t = tasks[position];
 		db.deleteTask(t);
 		update_list_view();
 		tasksList.invalidateViews();
-		//((BaseAdapter) adapter).notifyDataSetChanged(); 
 	}
 	
 	private void update_list_view(){
@@ -64,9 +58,7 @@ public class EditTasksActivity extends Activity implements OnItemClickListener{
 
 		tasksList = (ListView) findViewById(R.id.edit_tasks_list);
 		tasksList.setAdapter(adapter);
-		
-		tasksList.setOnItemClickListener(this);
-		
+				
 	}
 
 }
