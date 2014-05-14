@@ -11,12 +11,48 @@ import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity {
 
+
+	private Task currentTask;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initialize_tasks();
+		showRandomItem();
 	}
+	
+	private void startEditTasks(){
+		Intent intent = new Intent(this, EditTasksActivity.class);
+		startActivity(intent);
+	}
+	
+	public void showRandomItem(View view){
+		showRandomItem();
+	}
+	
+	public void showRandomItem(){
+		TextView t = (TextView) findViewById(R.id.visible_task);
+		
+		if (currentTask == null){
+			currentTask = Task.getRandomTask(new DatabaseHandler(this));
+		}
+		
+		currentTask = Task.getRandomTask(new DatabaseHandler(this), currentTask.getID());
+
+		t.setText(currentTask.getText());
+	}
+	
+	// used for development
+	private void initialize_tasks(){
+		DatabaseHandler db = new DatabaseHandler(this);
+		db.deleteAllTasks();
+		db.addTask(new Task("Say hello"));
+		db.addTask(new Task("Read a book"));
+		db.addTask(new Task("Listen to music"));
+	}
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -37,26 +73,4 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 	
-	private void startEditTasks(){
-		Intent intent = new Intent(this, EditTasksActivity.class);
-		startActivity(intent);
-	}
-	
-	public void showRandomItem(View view){
-		TextView t = (TextView) findViewById(R.id.visible_task);
-		
-		Task task = Task.getRandomTask(new DatabaseHandler(this));
-
-		t.setText(task.getText());
-	}
-	
-	// used for development
-	private void initialize_tasks(){
-		DatabaseHandler db = new DatabaseHandler(this);
-		db.deleteAllTasks();
-		db.addTask(new Task("Say hello"));
-		db.addTask(new Task("Read a book"));
-		db.addTask(new Task("Listen to music"));
-	}
-
 }

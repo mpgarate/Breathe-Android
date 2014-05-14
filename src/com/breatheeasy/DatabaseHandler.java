@@ -66,7 +66,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			t.setText(c.getString(c.getColumnIndex(KEY_TEXT)));
 		}
 		else{
-			t.setText("no tasks");
+			t.setText("no such task: " + id);
 		}
 		
 		
