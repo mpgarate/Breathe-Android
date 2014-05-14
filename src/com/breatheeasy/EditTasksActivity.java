@@ -1,6 +1,7 @@
 package com.breatheeasy;
 
-import java.util.ListIterator;
+import java.util.Collections;
+import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -49,14 +50,16 @@ public class EditTasksActivity extends Activity{
 	
 	private void update_list_view(){
 		//Task[] tasks = new Tasks[db.getTasksCount()];
-		tasks = db.getAllTasks().toArray(new Task[0]);
+		List<Task> allTasksList = db.getAllTasks();
+		Collections.reverse(allTasksList);
+		tasks = allTasksList.toArray(new Task[0]);
 				
 		task_texts = new String[tasks.length];
 				
 		int i = 0;
-		int j;
-		for(j = tasks.length-1; j >=0; j--){
-			task_texts[i] = tasks[j].getText();
+
+		for(Task t : tasks){
+			task_texts[i] = t.getText();
 			i++;
 		}
 		
