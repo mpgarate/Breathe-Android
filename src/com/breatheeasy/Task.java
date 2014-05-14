@@ -40,17 +40,12 @@ public class Task {
 	}
 	
 	public static Task getRandomTask(DatabaseHandler db, int omitId){
-		int count = db.getTasksCount();
-		
-		int randomId = omitId;
-		Random rand;
-		while(randomId == omitId){
-			rand = new Random();
-			randomId = rand.nextInt((count - 1) + 1) + 1;
+		int foundId = omitId;
+		Task t = null;
+		while(foundId == omitId){
+			t = db.getRandomTask();
+			foundId = t.getID();
 		}
-		
-		Log.i("Main activity","count: " + count);
-		Log.i("Main activity","Got random: " + randomId);
-		return db.getTask(randomId);
+		return t;
 	}
 }

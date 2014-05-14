@@ -49,6 +49,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	}
 	
+	public Task getRandomTask(){
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		String rand_order_lim_1 = " ORDER BY RANDOM() LIMIT 1;";
+		
+		String selectQuery = "SELECT * FROM " + TABLE_TASKS + rand_order_lim_1;
+		
+		Cursor c = db.rawQuery(selectQuery, null);
+		
+		Task t = new Task();
+		
+		if (c.getCount() > 0){
+			c.moveToFirst();
+
+			t.setID(c.getInt(c.getColumnIndex(KEY_ID)));
+			t.setText(c.getString(c.getColumnIndex(KEY_TEXT)));
+		}
+		else{
+			t.setText("error finding random task");
+			return null;
+		}
+		
+		return t;
+	}
+	
 	public Task getTask(int id){
 		SQLiteDatabase db = this.getReadableDatabase();
 		
@@ -67,24 +92,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		}
 		else{
 			t.setText("no such task: " + id);
+			return null;
 		}
 		
 		
 		return t;
-		
-		/*
-		Cursor cursor = db.query(TABLE_TASKS, new String[] { KEY_ID,
-				KEY_TEXT }, KEY_ID + "=?",
-				new String[] {String.valueOf(id) }, null, null, null, null);
-		if (cursor.getCount() > 0){
-			cursor.moveToFirst();
-		}
-
-		Task task = new Task(Integer.parseInt(cursor.getString(0)),
-				cursor.getString(1));
-		
-		return task;
-		*/
 	}
 	
 	public int getTasksCount(){
