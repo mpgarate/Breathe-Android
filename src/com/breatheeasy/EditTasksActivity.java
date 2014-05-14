@@ -45,6 +45,7 @@ public class EditTasksActivity extends Activity{
 		Task t = new Task(et.getText().toString());
 		db.addTask(t);
 		update_list_view();
+		et.setText(null);
 		tasksList.invalidateViews();
 	}
 	
