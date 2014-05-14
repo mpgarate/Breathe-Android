@@ -7,4 +7,6 @@
 	<string name="edit_tasks">Edit items</string>
 	<string name="breathe_button">Breathe</string>
 	<string name="edit_tasks_activity">Edit Tasks</string>
+	<string name="new_task_hint">Enter a new task</string>
+	<string name="button_send">add</string>
 </resources>

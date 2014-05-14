@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 public class EditTasksActivity extends Activity{
@@ -32,6 +33,14 @@ public class EditTasksActivity extends Activity{
 		Log.w("EditTasksActivity", "got click on pos: " + position);
 		Task t = tasks[position];
 		db.deleteTask(t);
+		update_list_view();
+		tasksList.invalidateViews();
+	}
+	
+	public void addItem(View v){
+		EditText et = (EditText)findViewById(R.id.new_task_text);
+		Task t = new Task(et.getText().toString());
+		db.addTask(t);
 		update_list_view();
 		tasksList.invalidateViews();
 	}
