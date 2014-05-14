@@ -1,5 +1,7 @@
 package com.breatheeasy;
 
+import java.util.ListIterator;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,10 +52,11 @@ public class EditTasksActivity extends Activity{
 		tasks = db.getAllTasks().toArray(new Task[0]);
 				
 		task_texts = new String[tasks.length];
-		
+				
 		int i = 0;
-		for(Task t : tasks){
-			task_texts[i] = t.getText();
+		int j;
+		for(j = tasks.length-1; j >=0; j--){
+			task_texts[i] = tasks[j].getText();
 			i++;
 		}
 		
