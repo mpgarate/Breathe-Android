@@ -29,7 +29,6 @@ public class MainActivity extends FragmentActivity {
 		switch (item.getItemId()){
 		case R.id.action_edit_tasks:
 			startEditTasks();
-			setContentView(R.layout.activity_edit_tasks);
 			return true;
 		case R.id.action_settings:
 			return true;

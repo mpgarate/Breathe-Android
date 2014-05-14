@@ -60,5 +60,10 @@ public class EditTasksActivity extends Activity{
 		tasksList.setAdapter(adapter);
 				
 	}
+	
+	@Override
+	public void onBackPressed(){
+		finish();
+	}
 
 }
