@@ -34,13 +34,21 @@ public class MainActivity extends FragmentActivity {
 	public void showRandomItem(){
 		TextView t = (TextView) findViewById(R.id.visible_task);
 		
+		// Attempt to set currentTask
 		if (currentTask == null){
 			currentTask = Task.getRandomTask(new DatabaseHandler(this));
 		}
+		else{
+			currentTask = Task.getRandomTask(new DatabaseHandler(this), currentTask.getID());
+		}
 		
-		currentTask = Task.getRandomTask(new DatabaseHandler(this), currentTask.getID());
-
-		t.setText(currentTask.getText());
+		// Handle case where none found
+		if (currentTask == null){
+			t.setText("Add some items!");
+		}
+		else{
+			t.setText(currentTask.getText());
+		}
 	}
 	
 	// used for development

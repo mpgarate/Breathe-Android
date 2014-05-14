@@ -44,6 +44,7 @@ public class Task {
 		Task t = null;
 		while(foundId == omitId){
 			t = db.getRandomTask();
+			if (t == null) break;
 			foundId = t.getID();
 		}
 		return t;
